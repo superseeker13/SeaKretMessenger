@@ -20,5 +20,8 @@ public class MainActivity extends AppCompatActivity {
             EditText editText = findViewById(R.id.edit_message);
             String message = editText.getText().toString();
         }
-
+        
+        //TODO: Add message lisener thread and thread stop.
+        //TODO: Add contact info to message and destination.
+        
 }
