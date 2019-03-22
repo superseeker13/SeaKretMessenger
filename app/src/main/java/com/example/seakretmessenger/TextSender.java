@@ -1,8 +1,12 @@
 package com.example.seakretmessenger;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import javax.net.ssl.HttpsURLConnection;
+import java.nio.charset.StandardCharsets;
 
 /*
 *  Singleton used to send the message to the server over http.
@@ -12,6 +16,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 class TextSender {
     private static final TextSender ourInstance = new TextSender();
+    private static final String serverURLString = "ubuntu@ec2-3-91-230-123.compute-1.amazonaws.com";
     //private static List contactList = new LinkedList();
 
     private TextSender() {
@@ -28,19 +33,19 @@ class TextSender {
      */
     protected boolean sendMessage(String message){
         try {
-            URL serverUrl = new URL(message); //Hack FIx
+            URL serverUrl = new URL(serverURLString); //Hack FIx
             HttpURLConnection con = (HttpURLConnection) serverUrl.openConnection();
             con.setRequestMethod("POST");
-            con.setConnectTimeout(60 * 1000);
             int status = con.getResponseCode();
-            if(status < 299){
-                con.disconnect();
-                return true;
-            }
-                con.disconnect();
-                return false;
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                    new BufferedOutputStream(con.getOutputStream()), StandardCharsets.UTF_8));
+            writer.write(message);
+            writer.flush();
+            writer.close();
+            con.connect();
+            con.disconnect();
             } catch (IOException e) {
-                System.err.println(e.toString());
+                System.err.println("IOException in Sender.");
             }
         return false;
     }
