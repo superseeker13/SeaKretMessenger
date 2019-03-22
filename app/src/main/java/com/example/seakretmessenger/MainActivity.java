@@ -22,5 +22,8 @@ public class MainActivity extends AppCompatActivity {
             String message = editText.getText().toString();
             //String recipiet
         }
-
+        
+        //TODO: Add message lisener thread and thread stop.
+        //TODO: Add contact info to message and destination.
+        
 }
