@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         public void sendMessage(View view){
             EditText editText = findViewById(R.id.edit_message);
             String message = editText.getText().toString();
-
+            //String recipiet
         }
 
 }
