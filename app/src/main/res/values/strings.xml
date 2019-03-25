@@ -4,5 +4,11 @@
         <string name="button_send">Send</string>
         <string name="action_settings">Settings</string>
         <string name="title_activity_main">MainActivity</string>
+    <string name="sign_in">Sign In</string>
+    <string name="username">UserName</string>
+    <string name="name_of_sender">Name of Sender</string>
+    <string name="icon_menu">icon</string>
+    <string name="receive">Receive</string>
+    <string name="send">Send</string>
     -->
 </resources>
