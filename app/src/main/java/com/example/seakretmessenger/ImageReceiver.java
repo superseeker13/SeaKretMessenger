@@ -20,9 +20,9 @@ class ImageReceiver {
         return ourInstance;
     }
 
-    static LinkedList<Image> getImages(URL url) {
+    synchronized LinkedList<Image> getImages(String urlString) {
         try {
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            HttpURLConnection con = (HttpURLConnection) new URL(urlString).openConnection();
             con.setRequestMethod("GET");
             con.setReadTimeout(60 * 1000);
             con.setConnectTimeout(60 * 1000);
@@ -49,9 +49,11 @@ class ImageReceiver {
     /*
      * Copies the images from the input stream
      * //TODO: Add check for images
+     *
+     * //TODO: Try inverting screen to blob image : Low polity
      */
 
-    private static LinkedList<Image> copyInputStream(Reader streamReader) {
+    private synchronized LinkedList<Image> copyInputStream(Reader streamReader) {
         LinkedList<Image> result = new LinkedList<>();
         //while(streamReader.){
         //}

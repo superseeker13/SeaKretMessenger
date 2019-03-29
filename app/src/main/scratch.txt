@@ -1,0 +1,22 @@
+//Unimplemented to implement code
+/*
+*    //Creates image switcher variable
+*    private ImageSwitcher imageSwitcher;
+*    imageSwitcher = (ImageSwitcher)findViewById(R.id.imageSwitcher1);
+*
+*    //Sets the initial image and creates the image creation factory
+
+*    imageSwitcher.setImageResource(R.drawable.ic_launcher);
+*      imageSwitcher.setFactory(new ViewFactory() {
+*      public View makeView() {
+*       ImageView myView = new ImageView(getApplicationContext());
+*       return myView;
+*       }
+*      }
+*
+*      //Animates the images in the switcher
+
+*      Animation in = AnimationUtils.loadAnimation(this,android.R.anim.slide_in_left);
+*      imageSwitcher.setInAnimation(in);
+*      imageSwitcher.setOutAnimation(out);
+* */

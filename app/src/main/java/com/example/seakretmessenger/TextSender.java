@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 
 /*
 *  Singleton used to send the message to the server over http.
+*  Should be ran on an unique thread.
 *  I am not sure at the moment where to store the contact list
 *  or if we should use one at all.
  */
@@ -29,17 +30,19 @@ class TextSender {
     /*
     * Sends the message given to upstream to be converted to a bitmap.
     *
-    * //TODO: Add encryption
+    * //TODO: Update server url.
+    * //TODO: Add encryption on server side.
      */
-    protected boolean sendMessage(String message){
+    boolean sendMessage(String message){
         try {
             URL serverUrl = new URL(serverURLString); //Hack FIx
             HttpURLConnection con = (HttpURLConnection) serverUrl.openConnection();
             con.setRequestMethod("POST");
-            int status = con.getResponseCode();
+            //int status = con.getResponseCode();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
                     new BufferedOutputStream(con.getOutputStream()), StandardCharsets.UTF_8));
-            writer.write(message);
+            String mess = textEncryption.blowFishMessage(message,true);
+            writer.write(mess);
             writer.flush();
             writer.close();
             con.connect();
