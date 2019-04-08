@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
+        final static String siteUrl = "seakret.tk";
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -15,12 +16,17 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_main);
         }
 
+
+        //TODO: send OAuth and set it as a header.
         //When sign in button is pressed
         public void sendLogin(View view){
             EditText editText_username = findViewById(R.id.edit_username);
             EditText editText_password = findViewById(R.id.edit_password);
             final String username = editText_username.getText().toString();
             final String password = editText_password.getText().toString();
+            Thread sendThread = new Thread(()-> TextSender.getInstance()
+                    .sendMessage("OAuth" + username + "," + password));
+            sendThread.start();
             setContentView(R.layout.activity_menu);
         }
 
@@ -37,8 +43,9 @@ public class MainActivity extends AppCompatActivity {
             EditText editText = findViewById(R.id.edit_message);
             final String message = editText.getText().toString();
             Thread recieveThread = new Thread(()
-                     -> ImageReceiver.getInstance().getImages("Insert URL"));
+                     -> ImageReceiver.getInstance().getImages(siteUrl));
             recieveThread.start();
+            //TODO save images.
         }
 
         //TODO: Add contact info to message and destination.
