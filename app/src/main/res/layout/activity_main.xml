@@ -26,7 +26,7 @@
 
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             tools:layout_editor_absoluteX="254dp"
             tools:layout_editor_absoluteY="106dp" />
 
@@ -34,23 +34,29 @@
             android:id="@+id/edit_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints=""
+            android:autofillHints="UserName"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="@string/username" />
+            android:inputType="textPersonName"/>
 
         <EditText
             android:id="@+id/edit_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints=""
+            android:autofillHints="Password"
             android:ems="10"
             android:inputType="textPassword" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            tools:layout_editor_absoluteX="254dp"
+            tools:layout_editor_absoluteY="106dp" />
 
         <Button
             android:id="@+id/sign_in_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="sendLogin"
             android:text="@string/sign_in" />
     </LinearLayout>
 
