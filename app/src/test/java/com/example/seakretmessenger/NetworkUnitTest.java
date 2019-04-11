@@ -15,7 +15,7 @@ public class NetworkUnitTest {
         try{
             URL serverUrl = new URL(serverURLString);
             HttpURLConnection con = (HttpURLConnection) serverUrl.openConnection();
-            assertEquals(con.getErrorStream(), null); //May break
+            assertNull(con.getErrorStream()); //May break
             con.disconnect();
         } catch (Exception e){
             fail(e.getMessage());
@@ -26,16 +26,17 @@ public class NetworkUnitTest {
     @Test
     public void blowFishTest() {
         final String initMessage = "TestTest";
-        final String encrypted = textEncryption.blowFishMessage(initMessage,true);
-        assertNotEquals(initMessage, encrypted);
+        final byte[] encrypted = textEncryption.blowFishMessage(initMessage,true);
+        assertNotEquals(initMessage, encrypted.toString());
+        System.out.println(encrypted);
     }
 
     @Test
     public void hashTest() {
         final String initMessage = "TestTest";
-        final String hashed = textEncryption.hashMD5(initMessage);
-        final String hashedOne = textEncryption.hashMD5(initMessage);
+        final byte[] hashed = textEncryption.hashMD5(initMessage);
+        final byte[] hashedOne = textEncryption.hashMD5(initMessage);
         assertNotEquals(initMessage, hashed);
-        assertEquals(hashed,hashedOne);
+        assertTrue(hashed[0] == hashedOne[0]);
     }
 }

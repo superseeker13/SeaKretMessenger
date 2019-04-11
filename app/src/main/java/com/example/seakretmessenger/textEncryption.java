@@ -26,7 +26,7 @@ import static javax.crypto.Cipher.ENCRYPT_MODE;
 final class textEncryption {
 
     //Decryption not working
-    static String blowFishMessage(String message, boolean encrypt){
+    static byte[] blowFishMessage(String message, boolean encrypt){
         assert message != null;
         int mode = encrypt ? ENCRYPT_MODE : DECRYPT_MODE;
         try{
@@ -34,7 +34,7 @@ final class textEncryption {
             SecretKey sk = kg.generateKey(); //Hack set server and client keys
             Cipher cipher = Cipher.getInstance("Blowfish");
             cipher.init(mode, sk);
-            return String.valueOf(cipher.doFinal(message.getBytes()));
+            return cipher.doFinal(message.getBytes());
         }catch(Exception e){
             System.err.println(e.toString());
         }
@@ -43,17 +43,16 @@ final class textEncryption {
 
     //Destroyed after rebase needs fixed.
     //Returns unaltered string if fails.
-    static String hashMD5(String message){
+    static byte[] hashMD5(String message){
         final String hash = "35454B055CC325EA1AF2126E27707052";
-        String hashed = "";
         try{
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(message.getBytes());
             byte[] digest = md.digest();
-            return String.valueOf(digest);
+            return digest;
         } catch(NoSuchAlgorithmException e){
             System.err.println(e);
         }
-        return hashed;
+        return null;
     }
 }
