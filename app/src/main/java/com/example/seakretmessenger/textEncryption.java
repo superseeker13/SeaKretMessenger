@@ -34,7 +34,7 @@ final class textEncryption {
             SecretKey sk = kg.generateKey(); //Hack set server and client keys
             Cipher cipher = Cipher.getInstance("Blowfish");
             cipher.init(mode, sk);
-            return cipher.doFinal(message.getBytes()).toString();
+            return String.valueOf(cipher.doFinal(message.getBytes()));
         }catch(Exception e){
             System.err.println(e.toString());
         }
