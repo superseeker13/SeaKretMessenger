@@ -34,10 +34,10 @@ class TextSender {
             con.setConnectTimeout(60 * 1000);
             int status = con.getResponseCode();
             if(status < 299){
+                con.connect();
                 con.disconnect();
                 return true;
             }
-                con.disconnect();
                 return false;
             } catch (IOException e) {
                 System.err.println(e.toString());
