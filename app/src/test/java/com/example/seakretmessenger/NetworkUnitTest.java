@@ -26,9 +26,10 @@ public class NetworkUnitTest {
     @Test
     public void blowFishTest() {
         final String initMessage = "TestTest";
-        final byte[] encrypted = textEncryption.blowFishMessage(initMessage,true);
-        assertNotEquals(initMessage, encrypted.toString());
-        System.out.println(encrypted);
+        final String encrypted = textEncryption.blowFishMessageEncrypt(initMessage);
+        assertNotEquals(initMessage, encrypted);
+        System.out.println(initMessage + encrypted);
+        //assertEquals(initMessage, textEncryption.blowFishMessageDecrypt(encrypted.getBytes()));
     }
 
     @Test
