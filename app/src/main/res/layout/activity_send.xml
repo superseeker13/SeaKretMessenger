@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="32dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.59000003">
+
+        <EditText
+            android:id="@+id/edit_edit_dest"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:autofillHints=""
+            android:hint="@string/destination"
+            android:inputType=""
+            tools:targetApi="o" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginBottom="569dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -18,7 +42,8 @@
             android:layout_weight="1"
             android:autofillHints=""
             android:hint="@string/edit_message"
-            android:inputType="" tools:targetApi="o"/>
+            android:inputType=""
+            tools:targetApi="o" />
 
         <Button
             android:id="@+id/send_button"
