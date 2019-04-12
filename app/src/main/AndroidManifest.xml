@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activitymenu"></activity>
+        <activity android:name=".activityreceive"></activity>
+        <activity android:name=".activitysend"></activity>
 
     </application>
 
