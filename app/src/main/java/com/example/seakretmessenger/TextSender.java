@@ -26,18 +26,42 @@ class TextSender {
     *
     * //TODO: Add encryption
      */
-    protected boolean sendMessage(String message){
+
+    protected boolean sendLogin(String message, String username){
         try {
-            URL serverUrl = new URL(message); //Hack FIx
+            URL serverUrl = new URL("http://babycakes.tk");
             HttpURLConnection con = (HttpURLConnection) serverUrl.openConnection();
             con.setRequestMethod("POST");
+            con.addRequestProperty("Username", username);
             con.setConnectTimeout(60 * 1000);
             int status = con.getResponseCode();
             if(status < 299){
+                con.connect();
                 con.disconnect();
                 return true;
             }
+            con.disconnect();
+            return false;
+        } catch (IOException e) {
+            System.err.println(e.toString());
+        }
+        return false;
+    }
+
+    protected boolean sendMessage(String message, String dest, String username){
+        try {
+            URL serverUrl = new URL("http://babycakes.tk");
+            HttpURLConnection con = (HttpURLConnection) serverUrl.openConnection();
+            con.setRequestMethod("POST");
+            con.addRequestProperty("Username", username);
+            con.addRequestProperty("Destination", dest);
+            con.setConnectTimeout(60 * 1000);
+            int status = con.getResponseCode();
+            if(status < 299){
+                con.connect();
                 con.disconnect();
+                return true;
+            }
                 return false;
             } catch (IOException e) {
                 System.err.println(e.toString());
