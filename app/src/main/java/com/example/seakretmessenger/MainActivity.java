@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         Thread receiveThread = new Thread(new Runnable(){
             @Override
             public void run() {
-                ImageReceiver.getInstance().getImages("http//seakret.tx");
+                ImageReceiver.getInstance().getImages("http://babycakes.tk/");
             }
         });
 
