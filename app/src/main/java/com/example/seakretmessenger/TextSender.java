@@ -29,7 +29,7 @@ class TextSender {
 
     protected boolean sendLogin(String message, String username){
         try {
-            URL serverUrl = new URL(message); //Hack FIx
+            URL serverUrl = new URL("http://babycakes.tk");
             HttpURLConnection con = (HttpURLConnection) serverUrl.openConnection();
             con.setRequestMethod("POST");
             con.addRequestProperty("Username", username);
@@ -50,7 +50,7 @@ class TextSender {
 
     protected boolean sendMessage(String message, String dest, String username){
         try {
-            URL serverUrl = new URL(message); //Hack FIx
+            URL serverUrl = new URL("http://babycakes.tk");
             HttpURLConnection con = (HttpURLConnection) serverUrl.openConnection();
             con.setRequestMethod("POST");
             con.addRequestProperty("Username", username);
