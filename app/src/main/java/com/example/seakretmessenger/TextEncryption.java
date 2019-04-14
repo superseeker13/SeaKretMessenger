@@ -22,7 +22,7 @@ import static javax.crypto.Cipher.ENCRYPT_MODE;
 * */
 
 
-final class textEncryption {
+final class TextEncryption {
 
     static String blowFishMessageEncrypt(String message){
         assert message != null;

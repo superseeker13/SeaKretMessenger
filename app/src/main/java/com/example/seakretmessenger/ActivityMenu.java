@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-public class activitymenu extends AppCompatActivity {
+public class ActivityMenu extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -15,20 +15,20 @@ public class activitymenu extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         //On button press, will transition to receive screen
-        Button receive_activity_button = (Button) findViewById(R.id.receive_activity_button);
+        Button receive_activity_button = findViewById(R.id.receive_activity_button);
         receive_activity_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(activitymenu.this, activityreceive.class);
+                Intent startIntent = new Intent(ActivityMenu.this, ActivityReceive.class);
             }
         });
 
         //On button press, will transition to send screen
-        Button send_activity_button = (Button) findViewById(R.id.send_activity_button);
+        Button send_activity_button = findViewById(R.id.send_activity_button);
         send_activity_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(activitymenu.this, activitysend.class);
+                Intent startIntent = new Intent(ActivityMenu.this, ActivitySend.class);
             }
         });
 

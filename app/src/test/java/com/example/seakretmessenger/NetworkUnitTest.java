@@ -26,17 +26,17 @@ public class NetworkUnitTest {
     @Test
     public void blowFishTest() {
         final String initMessage = "TestTest";
-        final String encrypted = textEncryption.blowFishMessageEncrypt(initMessage);
+        final String encrypted = TextEncryption.blowFishMessageEncrypt(initMessage);
         assertNotEquals(initMessage, encrypted);
         System.out.println(initMessage + encrypted);
-        //assertEquals(initMessage, textEncryption.blowFishMessageDecrypt(encrypted.getBytes()));
+        //assertEquals(initMessage, TextEncryption.blowFishMessageDecrypt(encrypted.getBytes()));
     }
 
     @Test
     public void hashTest() {
         final String initMessage = "TestTest";
-        final byte[] hashed = textEncryption.hashMD5(initMessage);
-        final byte[] hashedOne = textEncryption.hashMD5(initMessage);
+        final byte[] hashed = TextEncryption.hashMD5(initMessage);
+        final byte[] hashedOne = TextEncryption.hashMD5(initMessage);
         assertNotEquals(initMessage, hashed);
         assertTrue(hashed[0] == hashedOne[0]);
     }
