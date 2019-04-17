@@ -18,8 +18,8 @@ public class GlideImage extends AppCompatActivity{
 
         gifImageView = (ImageView) findViewById(R.id.img_gif); // img_gif references xml in glidetest
 
-        loadFromURL();
-        //loadFromFile();
+        //loadFromURL();
+        loadFromFile();
     }
 
     // Loads a simple address
