@@ -1,16 +1,19 @@
 package com.example.seakretmessenger;
-
-import java.io.IOException
-
-import java.security.MessageDigest;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-
-import javax.crypto.SecretKey;
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
+import javax.crypto.BadPaddingException;
 
 import static javax.crypto.Cipher.DECRYPT_MODE;
 import static javax.crypto.Cipher.ENCRYPT_MODE;
+
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 /*
 *
@@ -24,55 +27,69 @@ import static javax.crypto.Cipher.ENCRYPT_MODE;
 * */
 
 public class textEncryption {
-    private static KeyGenerator kg;
-    private static SecretKey sk;
+    private final String algoString = "AES";
+    private static SecretKeySpec skSpec;
+    byte[] iv = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    IvParameterSpec ivspec = new IvParameterSpec(iv);
+    
     
     public textEncryption(){
-        textEncryption.kg = KeyGenerator.getInstance("Blowfish");
-        textEncryption.sk = kg.generateKey();
+        try {
+            skSpec = new SecretKeySpec(KeyGenerator.getInstance(algoString)
+                    .generateKey().getEncoded(), algoString);
+        } catch (NoSuchAlgorithmException ex) {
+            System.err.println(ex);
+        }
     }
     
-    public getSecretKey(){
-        return textEncryption.sk;
+    public SecretKeySpec getSecretKeySpec(){
+        return textEncryption.skSpec;
     }
     
-    static String blowFishMessageEncrypt(String message, SecretKey sk){
+    public String blowFishMessageEncrypt(String message, SecretKeySpec skSpec) {
         assert message != null;
         try{
-            Cipher cipher = Cipher.getInstance("Blowfish");
-            cipher.init(ENCRYPT_MODE, sk.getBytes("UTF-8"));
-            return new String(cipher.doFinal(message.getBytes()));
-        }catch(IOException e){
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(ENCRYPT_MODE, skSpec, ivspec);
+            try {
+                return new String(cipher.doFinal(message.getBytes("UTF-8")));
+            } catch (UnsupportedEncodingException ex) {
+                System.err.println("UTF-8 unsupported?");
+            }
+        }catch(BadPaddingException e){
+            System.err.println(e + "\n Bad Key.");
+        }catch(NoSuchAlgorithmException | NoSuchPaddingException 
+                | IllegalBlockSizeException | InvalidKeyException 
+                | InvalidAlgorithmParameterException e){
             System.err.println(e.toString());
         }
         return null;
     }
 
     //Not working
-    static String blowFishMessageDecrypt(String message, SecretKey sk){
+    public String blowFishMessageDecrypt(String message, SecretKeySpec skSpec){
         assert message != null;
         try{
-            Cipher cipher = Cipher.getInstance("Blowfish");
-            cipher.init(DECRYPT_MODE, sk);
-            return new String(cipher.doFinal(message));
-        }catch(IOException e){
-            System.err.println(e.toString());
-        }
-        return null; //Fix
-    }
-
-    //Destroyed after rebase needs fixed.
-    //Returns unaltered string if fails.
-    static byte[] hashMD5(String message){
-        final String hash = "35454B055CC325EA1AF2126E27707052";
-        try{
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(message.getBytes());
-            byte[] digest = md.digest();
-            return digest;
-        } catch(NoSuchAlgorithmException e){
-            System.err.println(e);
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(DECRYPT_MODE, skSpec, ivspec);
+            try {
+                return new String(cipher.doFinal(message.getBytes("UTF-8")));
+            } catch (UnsupportedEncodingException ex) {
+                System.err.println("UTF-8 unsupported?");
+            }
+        }catch(BadPaddingException e){
+            System.err.println(e + "\n Bad Key.");
+        }catch (InvalidKeyException | IllegalBlockSizeException
+                | NoSuchAlgorithmException | NoSuchPaddingException 
+                | InvalidAlgorithmParameterException ex) {
+            System.err.println(ex);
         }
         return null;
     }
+    /*
+    public static String padRight(String s) {
+        int padSize = 16 - (s.length() / 16);
+        return String.format("%1$-" + padSize + "s", s);  
+    }
+    */
 }
