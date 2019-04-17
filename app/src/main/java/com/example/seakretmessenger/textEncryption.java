@@ -1,5 +1,7 @@
 package com.example.seakretmessenger;
 
+import java.io.IOException
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -21,33 +23,39 @@ import static javax.crypto.Cipher.ENCRYPT_MODE;
 *   import java.security.NoSuchAlgorithmException;
 * */
 
-
-final class textEncryption {
-
-    static String blowFishMessageEncrypt(String message){
+public class textEncryption {
+    private static KeyGenerator kg;
+    private static SecretKey sk;
+    
+    public textEncryption(){
+        textEncryption.kg = KeyGenerator.getInstance("Blowfish");
+        textEncryption.sk = kg.generateKey();
+    }
+    
+    public getSecretKey(){
+        return textEncryption.sk;
+    }
+    
+    static String blowFishMessageEncrypt(String message, SecretKey sk){
         assert message != null;
         try{
-            KeyGenerator kg = KeyGenerator.getInstance("Blowfish");
-            SecretKey sk = kg.generateKey(); //Hack set server and client keys
             Cipher cipher = Cipher.getInstance("Blowfish");
             cipher.init(ENCRYPT_MODE, sk.getBytes("UTF-8"));
             return new String(cipher.doFinal(message.getBytes()));
-        }catch(Exception e){
+        }catch(IOException e){
             System.err.println(e.toString());
         }
-        return null; //Fix
+        return null;
     }
 
     //Not working
-    static String blowFishMessageDecrypt(byte[] message){
+    static String blowFishMessageDecrypt(String message, SecretKey sk){
         assert message != null;
         try{
-            KeyGenerator kg = KeyGenerator.getInstance("Blowfish");
-            SecretKey sk = kg.generateKey(); //Hack set server and client keys
             Cipher cipher = Cipher.getInstance("Blowfish");
             cipher.init(DECRYPT_MODE, sk);
             return new String(cipher.doFinal(message));
-        }catch(Exception e){
+        }catch(IOException e){
             System.err.println(e.toString());
         }
         return null; //Fix
