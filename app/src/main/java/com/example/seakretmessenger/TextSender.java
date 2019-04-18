@@ -1,8 +1,7 @@
 package com.example.seakretmessenger;
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import javax.net.ssl.HttpsURLConnection;
+import java.net.HttpURLConnection;
 
 /*
 *  Singleton used to send the message to the server over http.
@@ -29,7 +28,7 @@ class TextSender {
 
     protected boolean sendLogin(String message, String username){
         try {
-            URL serverUrl = new URL("http://babycakes.tk");
+            URL serverUrl = new URL("http://babycakes.tk/seakretApp-1.0/messManager");
             HttpURLConnection con = (HttpURLConnection) serverUrl.openConnection();
             con.setRequestMethod("POST");
             con.addRequestProperty("Username", username);
@@ -50,7 +49,7 @@ class TextSender {
 
     protected boolean sendMessage(String message, String dest, String username){
         try {
-            URL serverUrl = new URL("http://babycakes.tk");
+            URL serverUrl = new URL("http://babycakes.tk/seakretApp-1.0/messManager");
             HttpURLConnection con = (HttpURLConnection) serverUrl.openConnection();
             con.setRequestMethod("POST");
             con.addRequestProperty("Username", username);

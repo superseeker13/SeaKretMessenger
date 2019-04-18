@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         String password = editText_password.getText().toString();
         Thread sendThread
                 = new Thread(()-> TextSender.getInstance().sendLogin(password, username));
+        sendThread.start();
         setContentView(R.layout.activity_menu);
     }
 
@@ -35,17 +39,13 @@ public class MainActivity extends AppCompatActivity {
         final String dest = editText.getText().toString();
         Thread sendThread
                 = new Thread(() -> TextSender.getInstance().sendMessage(message, dest, username));
+        sendThread.start();
     }
 
     public void receiveMessage(View view){
-        Thread receiveThread = new Thread(new Runnable(){
-            @Override
-            public void run() {
-                ImageReceiver.getInstance().getImages("http://babycakes.tk/");
-            }
-        });
-
-        receiveThread.start();
+        final String gifLocation = "https://media.giphy.com/media/SozBhzSOBEqfC/giphy.gif";
+        ImageView imageView = findViewById(R.id.imageView);
+        Glide.with(this).load(gifLocation).into(imageView);
     }
 }
 
