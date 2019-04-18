@@ -4,14 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
-
 
 public class MainActivity extends AppCompatActivity {
 
-    String username;
+    public static String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,23 +25,6 @@ public class MainActivity extends AppCompatActivity {
                 = new Thread(()-> TextSender.getInstance().sendLogin(password, username));
         sendThread.start();
         setContentView(R.layout.activity_menu);
-    }
-
-    //When send button is pressed
-    // Lamda creates a Runnable that sends the message.
-    public void sendMessage(View view){
-        EditText editText = findViewById(R.id.edit_message);
-        final String message = editText.getText().toString();
-        final String dest = editText.getText().toString();
-        Thread sendThread
-                = new Thread(() -> TextSender.getInstance().sendMessage(message, dest, username));
-        sendThread.start();
-    }
-
-    public void receiveMessage(View view){
-        final String gifLocation = "https://media.giphy.com/media/SozBhzSOBEqfC/giphy.gif";
-        ImageView imageView = findViewById(R.id.imageView);
-        Glide.with(this).load(gifLocation).into(imageView);
     }
 }
 
