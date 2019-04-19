@@ -12,5 +12,7 @@
     <string name="send">Send</string>
     <string name="Destination">TextView</string>
     <string name="destination">Destination</string>
+    <string name="todo">TODO</string>
+    <string name="button">Button</string>
     -->
 </resources>
