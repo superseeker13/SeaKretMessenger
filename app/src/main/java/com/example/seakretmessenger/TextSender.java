@@ -1,6 +1,4 @@
 package com.example.seakretmessenger;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,39 +24,39 @@ class TextSender {
     * Sends the message given to upstream to be converted to a bitmap.
      */
 
-    protected boolean sendLogin(String message, String username) throws SecurityException{
+    protected void sendLogin(String message, String username) throws SecurityException{
         try {
             HttpURLConnection con = (HttpURLConnection) new URL(serverUrlString).openConnection();
             con.setRequestMethod("POST");
             con.addRequestProperty("Username", username);
             con.addRequestProperty("Destination", "");
             con.setConnectTimeout(60 * 1000);
-            con.connect();
+            try{
+                con.connect();
+            }catch(SecurityException e){ //Hack fix server certificate issue.
+                System.err.println("Security Exception: " + e);
+            }
             con.disconnect();
-            return true;
         } catch (IOException e) {
             System.err.println(e);
         }
-        return false;
     }
 
-    protected boolean sendMessage(String message, String dest, String username){
+    protected void sendMessage(String message, String dest, String username){
         try {
-                HttpURLConnection con = (HttpURLConnection) new URL(serverUrlString).openConnection();
-                con.setRequestMethod("POST");
-                con.addRequestProperty("Username", username);
-                con.addRequestProperty("Destination", dest);
-                con.setConnectTimeout(60 * 1000);
-                try{
-                    con.connect();
-                }catch(SecurityException e){ //Hack fix server certificate issue.
-                    System.err.println("Security Exception: " + e);
-                }
-                con.disconnect();
-                return true;
-            } catch (IOException e) {
-                System.err.println(e.toString());
+            HttpURLConnection con = (HttpURLConnection) new URL(serverUrlString).openConnection();
+            con.setRequestMethod("POST");
+            con.addRequestProperty("Username", username);
+            con.addRequestProperty("Destination", dest);
+            con.setConnectTimeout(60 * 1000);
+            try{
+                con.connect();
+            }catch(SecurityException e){ //Hack fix server certificate issue.
+                System.err.println("Security Exception: " + e);
             }
-        return false;
+            con.disconnect();
+        } catch (IOException e) {
+            System.err.println(e.toString());
+        }
     }
 }
