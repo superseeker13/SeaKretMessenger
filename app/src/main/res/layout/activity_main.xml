@@ -56,7 +56,6 @@
             android:id="@+id/sign_in_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="sendLogin"
             android:text="@string/sign_in" />
     </LinearLayout>
 
