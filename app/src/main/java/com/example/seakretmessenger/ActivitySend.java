@@ -19,8 +19,8 @@ public class ActivitySend extends AppCompatActivity {
         EditText editText = findViewById(R.id.edit_message);
         final String message = editText.getText().toString();
         final String dest = editText.getText().toString();
-        Thread sendThread
-                = new Thread(() -> TextSender.getInstance().sendMessage(message, dest, MainActivity.username));
+        Thread sendThread = new Thread(
+                () -> TextSender.getInstance().sendMessage(message, dest, MainActivity.username));
         sendThread.start();
     }
 }

@@ -1,6 +1,8 @@
 package com.example.seakretmessenger;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+
 import java.io.IOException;
-import java.net.SocketException;
 import java.net.URL;
 import java.net.HttpURLConnection;
 
@@ -24,18 +26,14 @@ class TextSender {
     * Sends the message given to upstream to be converted to a bitmap.
      */
 
-    protected boolean sendLogin(String message, String username){
+    protected boolean sendLogin(String message, String username) throws SecurityException{
         try {
             HttpURLConnection con = (HttpURLConnection) new URL(serverUrlString).openConnection();
             con.setRequestMethod("POST");
             con.addRequestProperty("Username", username);
             con.addRequestProperty("Destination", "");
             con.setConnectTimeout(60 * 1000);
-            try{
             con.connect();
-            }catch(SecurityException e){
-                System.err.println("Security Exception: " + e);
-            }
             con.disconnect();
             return true;
         } catch (IOException e) {
