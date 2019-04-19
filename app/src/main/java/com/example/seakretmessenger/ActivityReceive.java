@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 public class ActivityReceive extends AppCompatActivity {
 
@@ -17,9 +18,8 @@ public class ActivityReceive extends AppCompatActivity {
     }
 
     public void receiveMessage(View view){
-        final String gifLocation = "https://media.giphy.com/media/SozBhzSOBEqfC/giphy.gif";
+        final String gifLocation = "https://media.giphy.com/media/km2mais9qzYI/giphy.gif";
         ImageView imageView = findViewById(R.id.imageView);
-        Glide.with(this).load(gifLocation).into(imageView);
+        Glide.with(this).load(gifLocation).placeholder(R.drawable.tenor).into(imageView);
     }
-
 }

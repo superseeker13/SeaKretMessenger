@@ -9,7 +9,8 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String username;
+    public static final TextSender tSend = TextSender.getInstance();
+    public static String username = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +23,13 @@ public class MainActivity extends AppCompatActivity {
                 EditText editText_username = findViewById(R.id.edit_username);
                 EditText editText_password = findViewById(R.id.edit_password);
                 username = editText_username.getText().toString();
-                String password = editText_password.getText().toString();
+                final String password = editText_password.getText().toString();
+                //tSend.sendLogin(password, username);
                 Thread sendThread
-                        = new Thread(()-> TextSender.getInstance().sendLogin(password, username));
+                       = new Thread(()-> tSend.sendLogin(password, username));
                 sendThread.start();
-                Intent startIntent = new Intent( MainActivity.this, ActivityMenu.class);
+                Intent menuIntent = new Intent( MainActivity.this, ActivityMenu.class);
+                startActivity(menuIntent);
             }
         });
     }

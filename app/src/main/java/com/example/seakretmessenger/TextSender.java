@@ -1,5 +1,6 @@
 package com.example.seakretmessenger;
 import java.io.IOException;
+import java.net.SocketException;
 import java.net.URL;
 import java.net.HttpURLConnection;
 
@@ -11,7 +12,7 @@ import java.net.HttpURLConnection;
 
 class TextSender {
     private static final TextSender ourInstance = new TextSender();
-    //private static List contactList = new LinkedList();
+    private String serverUrlString = "http://babycakes.tk/seakretApp-1.0/messManager";
 
     private TextSender() {
     }
@@ -19,49 +20,44 @@ class TextSender {
     static TextSender getInstance() {
         return ourInstance;
     }
-
     /*
     * Sends the message given to upstream to be converted to a bitmap.
-    *
-    * //TODO: Add encryption
      */
 
     protected boolean sendLogin(String message, String username){
         try {
-            URL serverUrl = new URL("http://babycakes.tk/seakretApp-1.0/messManager");
-            HttpURLConnection con = (HttpURLConnection) serverUrl.openConnection();
+            HttpURLConnection con = (HttpURLConnection) new URL(serverUrlString).openConnection();
             con.setRequestMethod("POST");
             con.addRequestProperty("Username", username);
+            con.addRequestProperty("Destination", "");
             con.setConnectTimeout(60 * 1000);
-            int status = con.getResponseCode();
-            if(status < 299){
-                con.connect();
-                con.disconnect();
-                return true;
+            try{
+            con.connect();
+            }catch(SecurityException e){
+                System.err.println("Security Exception: " + e);
             }
             con.disconnect();
-            return false;
+            return true;
         } catch (IOException e) {
-            System.err.println(e.toString());
+            System.err.println(e);
         }
         return false;
     }
 
     protected boolean sendMessage(String message, String dest, String username){
         try {
-            URL serverUrl = new URL("http://babycakes.tk/seakretApp-1.0/messManager");
-            HttpURLConnection con = (HttpURLConnection) serverUrl.openConnection();
-            con.setRequestMethod("POST");
-            con.addRequestProperty("Username", username);
-            con.addRequestProperty("Destination", dest);
-            con.setConnectTimeout(60 * 1000);
-            int status = con.getResponseCode();
-            if(status < 299){
-                con.connect();
+                HttpURLConnection con = (HttpURLConnection) new URL(serverUrlString).openConnection();
+                con.setRequestMethod("POST");
+                con.addRequestProperty("Username", username);
+                con.addRequestProperty("Destination", dest);
+                con.setConnectTimeout(60 * 1000);
+                try{
+                    con.connect();
+                }catch(SecurityException e){ //Hack fix server certificate issue.
+                    System.err.println("Security Exception: " + e);
+                }
                 con.disconnect();
                 return true;
-            }
-                return false;
             } catch (IOException e) {
                 System.err.println(e.toString());
             }

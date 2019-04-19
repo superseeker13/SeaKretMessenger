@@ -16,21 +16,12 @@ public class ActivityMenu extends AppCompatActivity {
 
         //On button press, will transition to receive screen
         Button receive_activity_button = findViewById(R.id.receive_activity_button);
-        receive_activity_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent startIntent = new Intent(ActivityMenu.this, ActivityReceive.class);
-            }
-        });
+        receive_activity_button.setOnClickListener((view) ->
+                startActivity(new Intent(ActivityMenu.this, ActivityReceive.class)));
 
         //On button press, will transition to send screen
         Button send_activity_button = findViewById(R.id.send_activity_button);
-        send_activity_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent startIntent = new Intent(ActivityMenu.this, ActivitySend.class);
-            }
-        });
-
+        send_activity_button.setOnClickListener((view) ->
+                 startActivity(new Intent(ActivityMenu.this, ActivitySend.class)));
     }
 }
