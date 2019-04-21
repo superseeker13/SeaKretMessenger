@@ -2,9 +2,13 @@ package com.example.seakretmessenger;
 
 //import pl.droidsonroids.gif.GifDrawable;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.HttpURLConnection;
+import java.nio.charset.StandardCharsets;
 
 /*
 *  Singleton used to send the message to the server over http.
@@ -14,7 +18,7 @@ import java.net.HttpURLConnection;
 
 class MessageHandler {
     private static final MessageHandler ourInstance = new MessageHandler();
-    private String serverUrlString = "http://babycakes.tk/seakretApp-1.0/messManager";
+    private String serverUrlString = "http://babycakes.tk/ServerServletV2/messManager";
 
     private MessageHandler() {
     }
@@ -26,18 +30,15 @@ class MessageHandler {
     * Sends the message given to upstream to be converted to a bitmap.
      */
 
-    protected boolean sendLogin(String message, String username) throws SecurityException{
+    protected boolean sendLogin(String pass, String username) throws SecurityException{
         try {
             HttpURLConnection con = (HttpURLConnection) new URL(serverUrlString).openConnection();
             con.setRequestMethod("POST");
             con.addRequestProperty("Username", username);
             con.addRequestProperty("Destination", "");
+            con.addRequestProperty("Password", pass);
             con.setConnectTimeout(60 * 1000);
-            try{
-                con.connect();
-            }catch(SecurityException e){ //Hack fix server certificate issue.
-                System.err.println("Security Exception: " + e);
-            }
+            con.connect();
             con.disconnect();
             return true;
         } catch (IOException e) {
@@ -53,11 +54,13 @@ class MessageHandler {
             con.addRequestProperty("Username", username);
             con.addRequestProperty("Destination", dest);
             con.setConnectTimeout(60 * 1000);
-            try{
-                con.connect();
-            }catch(SecurityException e){ //Hack fix server certificate issue.
-                System.err.println("Security Exception: " + e);
-            }
+            BufferedOutputStream out = new BufferedOutputStream(con.getOutputStream());
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
+            writer.write(message);
+            writer.flush();
+            writer.close();
+            out.close();
+            con.connect();
             con.disconnect();
             return true;
         } catch (IOException e) {

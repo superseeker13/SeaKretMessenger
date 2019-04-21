@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final MessageHandler tSend = MessageHandler.getInstance();
     public static Context context;
-    public static String username = "Default";
+    public static String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
