@@ -25,14 +25,14 @@ public class NetworkUnitTest {
 
     @Test
     public void loginSend(){
-        TextSender testSend = TextSender.getInstance();
+        MessageHandler testSend = MessageHandler.getInstance();
         boolean success = testSend.sendLogin("Everything was fine","JohnSmith");
         assertTrue(success);
     }
 
     @Test
     public void loginMessage(){
-        TextSender testSend = TextSender.getInstance();
+        MessageHandler testSend = MessageHandler.getInstance();
         boolean success = testSend.sendMessage("Everything is fine","JaneDoe", "JohnSmith");
         assertTrue(success);
     }

@@ -1,5 +1,7 @@
 package com.example.seakretmessenger;
 
+//import pl.droidsonroids.gif.GifDrawable;
+
 import java.io.IOException;
 import java.net.URL;
 import java.net.HttpURLConnection;
@@ -10,21 +12,21 @@ import java.net.HttpURLConnection;
 *  or if we should use one at all.
  */
 
-class TextSender {
-    private static final TextSender ourInstance = new TextSender();
+class MessageHandler {
+    private static final MessageHandler ourInstance = new MessageHandler();
     private String serverUrlString = "http://babycakes.tk/seakretApp-1.0/messManager";
 
-    private TextSender() {
+    private MessageHandler() {
     }
 
-    static TextSender getInstance() {
+    static MessageHandler getInstance() {
         return ourInstance;
     }
     /*
     * Sends the message given to upstream to be converted to a bitmap.
      */
 
-    protected void sendLogin(String message, String username) throws SecurityException{
+    protected boolean sendLogin(String message, String username) throws SecurityException{
         try {
             HttpURLConnection con = (HttpURLConnection) new URL(serverUrlString).openConnection();
             con.setRequestMethod("POST");
@@ -37,12 +39,14 @@ class TextSender {
                 System.err.println("Security Exception: " + e);
             }
             con.disconnect();
+            return true;
         } catch (IOException e) {
-            System.err.println(e);
+            e.printStackTrace();
         }
+        return false;
     }
 
-    protected void sendMessage(String message, String dest, String username){
+    protected boolean sendMessage(String message, String dest, String username){
         try {
             HttpURLConnection con = (HttpURLConnection) new URL(serverUrlString).openConnection();
             con.setRequestMethod("POST");
@@ -55,8 +59,29 @@ class TextSender {
                 System.err.println("Security Exception: " + e);
             }
             con.disconnect();
+            return true;
         } catch (IOException e) {
-            System.err.println(e.toString());
+            e.printStackTrace();
         }
+        return false;
     }
+
+    /*
+    GifDrawable getImageFromURL(String username){
+        GifDrawable gifDraw = null;
+        try {
+            HttpURLConnection con = (HttpURLConnection) new URL(serverUrlString).openConnection();
+            con.setRequestMethod("GET");
+            con.addRequestProperty("Username", username);
+            con.setConnectTimeout(60 * 1000);
+            con.connect();
+            // Converts the output from the server to a byte array and then a gif.
+            byte[] imgArr = ((ByteArrayOutputStream)con.getOutputStream()).toByteArray();
+            gifDraw = new GifDrawable(imgArr);
+            con.disconnect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return gifDraw;
+    }*/
 }

@@ -9,9 +9,9 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final TextSender tSend = TextSender.getInstance();
+    public static final MessageHandler tSend = MessageHandler.getInstance();
     public static Context context;
-    public static String username = "";
+    public static String username = "Default";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

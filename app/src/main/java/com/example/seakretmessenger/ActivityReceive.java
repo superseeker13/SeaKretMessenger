@@ -1,15 +1,17 @@
 package com.example.seakretmessenger;
 
+import com.bumptech.glide.Glide;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+//import pl.droidsonroids.gif.GifDrawable;
 
 public class ActivityReceive extends AppCompatActivity {
 
@@ -20,9 +22,11 @@ public class ActivityReceive extends AppCompatActivity {
     }
 
     public void receiveMessage(View view){
-        final String gifLocation = "http://babycakes.tk/seakretApp-1.0/messManager/" + MainActivity.username;
+        final String gifLocation = "http://babycakes.tk/ServerServletV2/Users/"
+                + MainActivity.username +"/message.gif";
         final String errorLocation = "http://gph.to/2Gu5G0G"; //Use if an error occurs.
 
+        //Glide stuff
         int status = 404;
         try { //Checks if username's folder exists
             URL u = new URL(gifLocation);
@@ -42,5 +46,15 @@ public class ActivityReceive extends AppCompatActivity {
             ImageView imageView = findViewById(R.id.imageView);
             Glide.with(this).asGif().load(errorLocation).placeholder(R.drawable.tenor).into(imageView);
         }
+
+        /*Thread thread = new Thread(() ->{
+            GifDrawable gifDraw = MainActivity.tSend.getImageFromURL(MainActivity.username);
+            runOnUiThread(()->{
+                ImageView imageView = findViewById(R.id.imageView);
+                imageView.setImageDrawable(gifDraw);
+                imageView.animate();
+            });
+        });
+        thread.start();*/
     }
 }

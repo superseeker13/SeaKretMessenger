@@ -20,7 +20,7 @@ public class ActivitySend extends AppCompatActivity {
         final String message = editText.getText().toString();
         final String dest = editText.getText().toString();
         Thread sendThread = new Thread(
-                () -> TextSender.getInstance().sendMessage(message, dest, MainActivity.username));
+                () -> MessageHandler.getInstance().sendMessage(message, dest, MainActivity.username));
         sendThread.start();
     }
 }
