@@ -18,6 +18,9 @@ import java.nio.charset.StandardCharsets;
 *  or if we should use one at all.
  */
 
+/*
+ * @author Edward Conn
+ * */
 class MessageHandler {
     private static final MessageHandler ourInstance = new MessageHandler();
     private String serverUrlString = "http://babycakes.tk/ServerServletV2/messManager";

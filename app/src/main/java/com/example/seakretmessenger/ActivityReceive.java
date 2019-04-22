@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.ImageView;
 
 //import pl.droidsonroids.gif.GifDrawable;
-
+/*
+* @author Edward Conn
+* */
 public class ActivityReceive extends AppCompatActivity {
 
     @Override

@@ -7,6 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
 
+
+/*
+ * @author Edward Conn
+ * */
 public class MainActivity extends AppCompatActivity {
 
     public static final MessageHandler tSend = MessageHandler.getInstance();
