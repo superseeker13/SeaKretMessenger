@@ -27,6 +27,6 @@ public class ActivityReceive extends AppCompatActivity {
         final ImageView imageView = findViewById(R.id.imageView);
         Glide.with(this).asGif().load(gifLocation).placeholder(R.drawable.spring).into(imageView);
         Handler hand = new Handler();
-        hand.postDelayed(() -> imageView.setImageResource(R.drawable.spring),5000L);
+        hand.postDelayed(() -> imageView.setImageResource(R.drawable.spring),15000L);
     }
 }

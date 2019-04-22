@@ -3,8 +3,10 @@ package com.example.seakretmessenger;
 //import pl.droidsonroids.gif.GifDrawable;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.HttpURLConnection;
@@ -53,7 +55,6 @@ class MessageHandler {
             con.setRequestMethod("POST");
             con.addRequestProperty("Username", username);
             con.addRequestProperty("Destination", dest);
-            con.setConnectTimeout(60 * 1000);
             BufferedOutputStream out = new BufferedOutputStream(con.getOutputStream());
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
             writer.write(message);
@@ -61,6 +62,12 @@ class MessageHandler {
             writer.close();
             out.close();
             con.connect();
+            //Receive response
+            String response = "", line = "";
+            BufferedReader buffRead = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            while ((line=buffRead.readLine()) != null) {
+                response+= line + "\n";
+            }
             con.disconnect();
             return true;
         } catch (IOException e) {
