@@ -26,6 +26,10 @@ import javax.crypto.spec.SecretKeySpec;
 *   import java.security.NoSuchAlgorithmException;
 * */
 
+/*
+ * @author Edward Conn
+ * */
+
 public class TextEncryption {
     private static SecretKeySpec skSpec;
     private final String algoString = "AES";

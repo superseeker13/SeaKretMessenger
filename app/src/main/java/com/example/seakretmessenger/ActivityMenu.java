@@ -7,6 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+/*
+ * @author Edward Conn
+ * */
+
 public class ActivityMenu extends AppCompatActivity {
 
     @Override

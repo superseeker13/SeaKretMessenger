@@ -16,11 +16,14 @@ public class ActivitySend extends AppCompatActivity {
     //When send button is pressed
     // Lamda creates a Runnable that sends the message.
     public void sendMessage(View view){
-        EditText editText = findViewById(R.id.edit_message);
-        final String message = editText.getText().toString();
-        final String dest = editText.getText().toString();
-        Thread sendThread = new Thread(
-                () -> TextSender.getInstance().sendMessage(message, dest, MainActivity.username));
+        Thread sendThread = new Thread(() -> {
+            final EditText editText = findViewById(R.id.edit_message);
+            final EditText editDest = findViewById(R.id.edit_dest);
+            final String message = editText.getText().toString();
+            final String dest = editDest.getText().toString();
+            final MessageHandler mess = MessageHandler.getInstance();
+            mess.sendMessage(message, dest, MainActivity.username);
+        });
         sendThread.start();
     }
 }
